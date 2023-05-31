@@ -15,4 +15,8 @@
     <ProjectReference Include="..\SistemaCompra.Infra.Data\SistemaCompra.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SolicitacaoCompra\Command\RegistrarCompra\" />
+  </ItemGroup>
+
 </Project>

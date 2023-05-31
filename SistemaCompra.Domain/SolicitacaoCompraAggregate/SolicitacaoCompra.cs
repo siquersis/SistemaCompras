@@ -16,6 +16,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public DateTime Data { get; private set; }
         public Money TotalGeral { get; private set; }
         public Situacao Situacao { get; private set; }
+        public CondicaoPagamento CondicaoPagamento { get; private set; }
 
         private SolicitacaoCompra() { }
 
@@ -35,7 +36,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-           
+            if (itens.Any() && TotalGeral.Value > 50000)
+                CondicaoPagamento = new CondicaoPagamento(30);
+
         }
     }
 }

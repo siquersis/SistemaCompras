@@ -18,6 +18,7 @@ namespace SistemaCompra.Domain.Core.Model
             {
                 return false;
             }
+
             return GetAttributesToIncludeInEqualityCheck().SequenceEqual(other.GetAttributesToIncludeInEqualityCheck());
         }
 

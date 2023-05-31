@@ -1,11 +1,12 @@
 ﻿using SistemaCompra.Domain.Core;
+using SistemaCompra.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class NomeFornecedor
+    public class NomeFornecedor : Entity
     {
         public string Nome { get; }
 

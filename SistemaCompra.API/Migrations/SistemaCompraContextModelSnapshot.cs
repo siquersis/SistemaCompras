@@ -42,6 +42,20 @@ namespace SistemaCompra.API.Migrations
                     b.ToTable("Produto");
                 });
 
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CondicaoPagamento");
+                });
+
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Item", b =>
                 {
                     b.Property<Guid>("Id")
@@ -66,19 +80,40 @@ namespace SistemaCompra.API.Migrations
                     b.ToTable("Item");
                 });
 
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.NomeFornecedor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NomeFornecedor");
+                });
+
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoCompra", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CondicaoPagamentoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("NomeFornecedorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Situacao")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CondicaoPagamentoId");
+
+                    b.HasIndex("NomeFornecedorId");
 
                     b.ToTable("SolicitacaoCompra");
                 });
@@ -116,6 +151,14 @@ namespace SistemaCompra.API.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoCompra", b =>
                 {
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", "CondicaoPagamento")
+                        .WithMany()
+                        .HasForeignKey("CondicaoPagamentoId");
+
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.NomeFornecedor", "NomeFornecedor")
+                        .WithMany()
+                        .HasForeignKey("NomeFornecedorId");
+
                     b.OwnsOne("SistemaCompra.Domain.Core.Model.Money", "TotalGeral", b1 =>
                         {
                             b1.Property<Guid>("SolicitacaoCompraId")
@@ -124,57 +167,6 @@ namespace SistemaCompra.API.Migrations
                             b1.Property<decimal>("Value")
                                 .HasColumnName("TotalGeral")
                                 .HasColumnType("decimal(18,2)");
-
-                            b1.HasKey("SolicitacaoCompraId");
-
-                            b1.ToTable("SolicitacaoCompra");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SolicitacaoCompraId");
-                        });
-
-                    b.OwnsOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", "CondicaoPagamento", b1 =>
-                        {
-                            b1.Property<Guid>("SolicitacaoCompraId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Valor")
-                                .HasColumnName("CondicaoPagamento")
-                                .HasColumnType("int");
-
-                            b1.HasKey("SolicitacaoCompraId");
-
-                            b1.ToTable("SolicitacaoCompra");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SolicitacaoCompraId");
-                        });
-
-                    b.OwnsOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.NomeFornecedor", "NomeFornecedor", b1 =>
-                        {
-                            b1.Property<Guid>("SolicitacaoCompraId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Nome")
-                                .HasColumnName("NomeFornecedor")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("SolicitacaoCompraId");
-
-                            b1.ToTable("SolicitacaoCompra");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SolicitacaoCompraId");
-                        });
-
-                    b.OwnsOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.UsuarioSolicitante", "UsuarioSolicitante", b1 =>
-                        {
-                            b1.Property<Guid>("SolicitacaoCompraId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Nome")
-                                .HasColumnName("UsuarioSolicitante")
-                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("SolicitacaoCompraId");
 

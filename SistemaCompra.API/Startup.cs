@@ -7,9 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SistemaCompra.Application.Produto;
 using SistemaCompra.Domain.ProdutoAggregate;
-using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using SistemaCompra.Infra.Data;
 using SistemaCompra.Infra.Data.Produto;
 using SistemaCompra.Infra.Data.UoW;
@@ -39,14 +37,14 @@ namespace SistemaCompra.API
 
             services.AddDbContext<SistemaCompraContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"), 
-                    o=> o.MigrationsAssembly("SistemaCompra.API"))
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    o => o.MigrationsAssembly("SistemaCompra.API"))
             );
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Prova Sisprev", Version = "v1" });
-            });          
+            });
 
         }
 
@@ -56,7 +54,7 @@ namespace SistemaCompra.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -67,11 +65,11 @@ namespace SistemaCompra.API
             });
 
             app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Prova Sisprev V1");
-            });
+            app.UseSwaggerUI();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/v1/swagger.json", "Prova Sisprev V1");
+            //});
         }
     }
 }
