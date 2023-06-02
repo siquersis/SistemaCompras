@@ -8,7 +8,8 @@ namespace SistemaCompra.Infra.Data.Produto
     {
         private readonly SistemaCompraContext context;
 
-        public ProdutoRepository(SistemaCompraContext context)  {
+        public ProdutoRepository(SistemaCompraContext context)
+        {
             this.context = context;
         }
 
@@ -24,7 +25,7 @@ namespace SistemaCompra.Infra.Data.Produto
 
         public ProdutoAgg.Produto Obter(Guid id)
         {
-            return context.Set<ProdutoAgg.Produto>().Where(c=> c.Id == id).FirstOrDefault();
+            return context.Set<ProdutoAgg.Produto>().Where(c => c.Id == id).FirstOrDefault();
         }
 
         public void Registrar(ProdutoAgg.Produto entity)

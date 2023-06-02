@@ -12,11 +12,11 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
     {
         public UsuarioSolicitante UsuarioSolicitante { get; private set; }
         public NomeFornecedor NomeFornecedor { get; private set; }
-        public IList<Item> Itens { get; private set; }
+        public List<Item> Itens { get; private set; }
         public DateTime Data { get; private set; }
         public Money TotalGeral { get; private set; }
         public Situacao Situacao { get; private set; }
-        public CondicaoPagamento CondicaoPagamento { get; private set; }
+        public CondicaoPagamento CondicaoPagamento { get; set; }
 
         private SolicitacaoCompra() { }
 
@@ -38,7 +38,11 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         {
             if (itens.Any() && TotalGeral.Value > 50000)
                 CondicaoPagamento = new CondicaoPagamento(30);
+        }
 
+        public void CalculaTotalGeral()
+        {
+            Itens.ForEach(x => TotalGeral.Add(x.Subtotal));
         }
     }
 }

@@ -17,6 +17,8 @@ namespace SistemaCompra.Domain.Core.Model
 
         public override bool Equals(object obj)
         {
+            return base.Equals(obj);
+
             var compareTo = obj as Entity;
 
             if (ReferenceEquals(this, compareTo)) return true;

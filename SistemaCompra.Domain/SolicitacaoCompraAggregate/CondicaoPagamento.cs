@@ -11,6 +11,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public int Valor { get; private set; }
 
+
         private CondicaoPagamento() { }
 
         public CondicaoPagamento(int condicao)

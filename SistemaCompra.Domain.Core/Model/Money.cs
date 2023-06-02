@@ -8,8 +8,7 @@ namespace SistemaCompra.Domain.Core.Model
     {
         public readonly decimal Value;
 
-        public Money()
-                : this(0m)
+        public Money() : this(0m)
         {
         }
 

@@ -7,14 +7,14 @@ namespace SistemaCompra.Domain.ProdutoAggregate
 {
     public class Produto : Entity
     {
-        public Categoria Categoria { get; private set; }
-        public Money Preco { get; private set; }
-        public string Descricao { get; private set; }
-        public string Nome { get; private set; }
+        public Categoria Categoria { get; set; }
+        public Money Preco { get; set; }
+        public string Descricao { get; set; }
+        public string Nome { get; set; }
 
-        public Situacao Situacao { get; private set; }
+        public Situacao Situacao { get; set; }
 
-        private Produto(){}
+        private Produto() { }
 
         public Produto(string nome, string descricao, string categoria, decimal preco)
         {
@@ -22,7 +22,7 @@ namespace SistemaCompra.Domain.ProdutoAggregate
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
             Descricao = descricao ?? throw new ArgumentNullException(nameof(descricao));
             Preco = new Money(preco);
-            Categoria = (Categoria) Enum.Parse(typeof(Categoria), categoria);
+            Categoria = (Categoria)Enum.Parse(typeof(Categoria), categoria);
             Situacao = Situacao.Ativo;
         }
 
@@ -38,7 +38,8 @@ namespace SistemaCompra.Domain.ProdutoAggregate
 
         public void AtualizarPreco(decimal preco)
         {
-            if (Situacao != Situacao.Ativo) throw new BusinessRuleException("Produto deve estar ativo!");
+            if (Situacao != Situacao.Ativo)
+                throw new BusinessRuleException("Produto deve estar ativo!");
 
             Preco = new Money(preco);
 
