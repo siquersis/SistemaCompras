@@ -17,6 +17,12 @@
 
   <ItemGroup>
     <Folder Include="SolicitacaoCompra\Command\RegistrarCompra\" />
+    <Folder Include="SolicitacaoCompra\Query\" />
+    <Folder Include="SolicitacaoCompra\Query\ObterSolicitacaoCompra\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="SolicitacaoCompra\Query\" />
+    <None Remove="SolicitacaoCompra\Query\ObterSolicitacaoCompra\" />
+  </ItemGroup>
 </Project>

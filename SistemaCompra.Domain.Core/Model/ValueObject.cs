@@ -35,6 +35,7 @@ namespace SistemaCompra.Domain.Core.Model
         public override int GetHashCode()
         {
             int hash = 17;
+
             foreach (var obj in this.GetAttributesToIncludeInEqualityCheck())
                 hash = hash * 31 + (obj == null ? 0 : obj.GetHashCode());
 

@@ -21,7 +21,7 @@ namespace SistemaCompra.Domain.Test.SolicitacaoCompraAggregate
             solicitacao.RegistrarCompra(itens);
 
             //Então
-            //Assert.Equal(30, solicitacao.CondicaoPagamento.Valor);
+            Assert.Equal(50000, solicitacao.CondicaoPagamento.Valor);
         }
 
         [Fact]

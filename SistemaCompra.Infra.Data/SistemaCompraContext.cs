@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SistemaCompra.Domain.Core;
 using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using SistemaCompra.Infra.Data.Produto;
 using SistemaCompra.Infra.Data.SolicitacaoCompra;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;
 using SolicitacaoAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
 
@@ -27,14 +29,13 @@ namespace SistemaCompra.Infra.Data
 
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new SolicitacaoCompraConfiguration());
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(loggerFactory)
-                .EnableSensitiveDataLogging()
-                .UseSqlServer(@"Server=localhost; Database=SistemaCompraDb;User Id=sa;Password=Abcd.123");
+                          .EnableSensitiveDataLogging()
+                          .UseSqlServer(@"Server=localhost; Database=SistemaCompraDb;User Id=sa;Password=Abcd.123");
         }
     }
 }
