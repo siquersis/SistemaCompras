@@ -27,6 +27,8 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             NomeFornecedor = new NomeFornecedor(nomeFornecedor);
             Data = DateTime.Now;
             Situacao = Situacao.Solicitado;
+            Itens = new List<Item>();
+            TotalGeral = new Money();
         }
 
         public void AdicionarItem(Produto produto, int qtde)
@@ -42,7 +44,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void CalculaTotalGeral()
         {
-            Itens.ForEach(x => TotalGeral.Add(x.Subtotal));
+            foreach (var item in Itens)
+                TotalGeral = TotalGeral.Add(item.Subtotal);
+            this.RegistrarCompra(Itens);
         }
     }
 }

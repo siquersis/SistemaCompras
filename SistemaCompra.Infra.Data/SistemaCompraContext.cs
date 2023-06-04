@@ -36,6 +36,7 @@ namespace SistemaCompra.Infra.Data
             optionsBuilder.UseLoggerFactory(loggerFactory)
                           .EnableSensitiveDataLogging()
                           .UseSqlServer(@"Server=localhost; Database=SistemaCompraDb;User Id=sa;Password=Abcd.123");
+
         }
     }
 }

@@ -67,6 +67,11 @@ namespace SistemaCompra.API
                 endpoints.MapControllers();
             });
 
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<SistemaCompraContext>().Database.Migrate();
+            }
+
             app.UseSwagger();
             app.UseSwaggerUI();
             //app.UseSwaggerUI(c =>

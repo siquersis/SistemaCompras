@@ -15,8 +15,9 @@ namespace SistemaCompra.Infra.Data.SolicitacaoCompra
 
         public SolicitacaoAgg.SolicitacaoCompra Obter(Guid id)
         {
-            return context.Set<SolicitacaoAgg.SolicitacaoCompra>()
-                          .Where(c => c.Id == id).FirstOrDefault();
+            var solicitacaoCompra = context.Set<SolicitacaoAgg.SolicitacaoCompra>().Where(c => c.Id.Equals(id)).ToList();
+
+            return solicitacaoCompra.SingleOrDefault();
         }
 
         public void RegistrarCompra(SolicitacaoAgg.SolicitacaoCompra entity)

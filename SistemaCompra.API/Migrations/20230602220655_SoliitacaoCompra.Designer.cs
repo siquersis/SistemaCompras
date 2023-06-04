@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaCompra.Infra.Data;
 
 namespace SistemaCompra.API.Migrations
 {
     [DbContext(typeof(SistemaCompraContext))]
-    partial class SistemaCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20230602220655_SoliitacaoCompra")]
+    partial class SoliitacaoCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,6 +42,20 @@ namespace SistemaCompra.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
+                });
+
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CondicaoPagamento");
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.Item", b =>
@@ -72,6 +88,9 @@ namespace SistemaCompra.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CondicaoPagamentoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
@@ -79,6 +98,8 @@ namespace SistemaCompra.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CondicaoPagamentoId");
 
                     b.ToTable("SolicitacaoCompra");
                 });
@@ -116,6 +137,10 @@ namespace SistemaCompra.API.Migrations
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoCompra", b =>
                 {
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", "CondicaoPagamento")
+                        .WithMany()
+                        .HasForeignKey("CondicaoPagamentoId");
+
                     b.OwnsOne("SistemaCompra.Domain.Core.Model.Money", "TotalGeral", b1 =>
                         {
                             b1.Property<Guid>("SolicitacaoCompraId")
@@ -124,26 +149,6 @@ namespace SistemaCompra.API.Migrations
                             b1.Property<decimal>("Value")
                                 .HasColumnName("TotalGeral")
                                 .HasColumnType("decimal(18,2)");
-
-                            b1.HasKey("SolicitacaoCompraId");
-
-                            b1.ToTable("SolicitacaoCompra");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SolicitacaoCompraId");
-                        });
-
-                    b.OwnsOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.CondicaoPagamento", "CondicaoPagamento", b1 =>
-                        {
-                            b1.Property<Guid>("SolicitacaoCompraId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Valor")
-                                .HasColumnName("CondicaoPagamento")
-                                .HasColumnType("int");
 
                             b1.HasKey("SolicitacaoCompraId");
 

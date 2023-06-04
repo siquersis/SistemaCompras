@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\SistemaCompra.Domain.Core\SistemaCompra.Domain.Core.csproj" />
+		<ProjectReference Include="..\SistemaCompra.Domain.Core\SistemaCompra.Domain.Core.csproj">
+		  <ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

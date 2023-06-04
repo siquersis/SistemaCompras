@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,8 +9,12 @@
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\SistemaCompra.Domain\SistemaCompra.Domain.csproj" />
-		<ProjectReference Include="..\SistemaCompra.Infra.Data\SistemaCompra.Infra.Data.csproj" />
+		<ProjectReference Include="..\SistemaCompra.Domain\SistemaCompra.Domain.csproj">
+		  <ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
+		<ProjectReference Include="..\SistemaCompra.Infra.Data\SistemaCompra.Infra.Data.csproj">
+		  <ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="SolicitacaoCompra\Command\RegistrarCompra\" />

@@ -26,28 +26,21 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
 
         public Task<bool> Handle(RegistrarCompraCommand request, CancellationToken cancellationToken)
         {
-            try
+            var solicitacaoCompra = new SolicitacaoAgg.SolicitacaoCompra(request.UsuarioSolicitante, request.NomeFornecedor);
+
+            foreach (var item in request.Item)
             {
-                var solicitacaoCompra = new SolicitacaoAgg.SolicitacaoCompra(request.UsuarioSolicitante, request.NomeFornecedor);
+                var produto = _produtoRepository.Obter(item.ProdutoId);
 
-                foreach (var item in request.Item)
-                {
-                    var produto = _produtoRepository.Obter(item.ProdutoId);
-
-                    if (produto != null)
-                        solicitacaoCompra.AdicionarItem(produto, item.Quantidade);
-                }
-
-                _solicitacaoRepository.RegistrarCompra(solicitacaoCompra);
-
-                Commit();
-                PublishEvents(solicitacaoCompra.Events);
+                if (produto != null)
+                    solicitacaoCompra.AdicionarItem(produto, item.Quantidade);
             }
-            catch (Exception ex)
-            {
-                var errorMessage = ex.Message;
-                return Task.FromResult(false);
-            }
+            solicitacaoCompra.CalculaTotalGeral();
+
+            _solicitacaoRepository.RegistrarCompra(solicitacaoCompra);
+
+            Commit();
+            PublishEvents(solicitacaoCompra.Events);
 
             return Task.FromResult(true);
         }

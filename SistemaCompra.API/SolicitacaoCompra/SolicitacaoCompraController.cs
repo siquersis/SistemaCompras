@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra;
@@ -29,9 +30,10 @@ namespace SistemaCompra.API.SolicitacaoCompra
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult CadastrarSolicitacaoCompra([FromBody] RegistrarCompraCommand registrarCompracommand)
+        public async Task<IActionResult>  CadastrarSolicitacaoCompra([FromBody] RegistrarCompraCommand registrarCompracommand)
+
         {
-            _mediator.Send(registrarCompracommand);
+            await _mediator.Send(registrarCompracommand);
             return StatusCode(201);
         }
     }

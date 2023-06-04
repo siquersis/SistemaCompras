@@ -25,7 +25,9 @@ namespace SistemaCompra.Infra.Data.Produto
 
         public ProdutoAgg.Produto Obter(Guid id)
         {
-            return context.Set<ProdutoAgg.Produto>().Where(c => c.Id == id).FirstOrDefault();
+            var produto = context.Set<ProdutoAgg.Produto>().Where(c => c.Id.Equals(id)).ToList();
+
+            return produto.SingleOrDefault();
         }
 
         public void Registrar(ProdutoAgg.Produto entity)
