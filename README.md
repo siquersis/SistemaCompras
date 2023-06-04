@@ -2,6 +2,6 @@
 
 Desenvolvedor: Evandro César de Siqueira
 
-Pós graduando em engenharia de sistemas.
+Pós graduado em engenharia de sistemas e bacharel em sistemas de informação.
 
 Linkedin: https://www.linkedin.com/in/evandro-siqueira-3ab679a9/
