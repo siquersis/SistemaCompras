@@ -66,7 +66,8 @@ namespace SistemaCompra.API
             {
                 endpoints.MapControllers();
             });
-
+            
+            //Toda migration nova ele executará automáticamente(como se fosse em abiente de PRD).
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 scope.ServiceProvider.GetRequiredService<SistemaCompraContext>().Database.Migrate();
